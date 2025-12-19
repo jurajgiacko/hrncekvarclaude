@@ -3,176 +3,211 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { MagicButton } from "@/components/MagicButton";
-import { FloatingEmojis } from "@/components/FloatingEmojis";
-import { Sparkles, Book, Wand2 } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 export default function Home() {
   return (
-    <main className="min-h-screen relative overflow-hidden">
-      <FloatingEmojis />
+    <main className="min-h-screen bg-gradient-hero flex flex-col">
+      {/* Header */}
+      <header className="p-6 flex items-center justify-between">
+        <div className="text-2xl font-bold gradient-text">Hrnček Var!</div>
+        <div className="flex gap-2">
+          {["🇸🇰", "🇨🇿", "🇬🇧"].map((flag) => (
+            <button
+              key={flag}
+              className="text-xl hover:scale-110 transition-transform"
+            >
+              {flag}
+            </button>
+          ))}
+        </div>
+      </header>
 
-      {/* Hero Section */}
-      <section className="min-h-screen flex flex-col items-center justify-center px-4 relative z-10">
-        {/* Animated Pot Icon */}
+      {/* Hero */}
+      <section className="flex-1 flex flex-col lg:flex-row items-center justify-center gap-12 px-6 py-12">
+        {/* Left - Text */}
         <motion.div
-          initial={{ scale: 0, rotate: -180 }}
-          animate={{ scale: 1, rotate: 0 }}
-          transition={{ type: "spring", duration: 1, bounce: 0.5 }}
-          className="text-8xl md:text-9xl mb-6"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-lg text-center lg:text-left"
         >
-          🍲
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-800 mb-6 leading-tight"
+          >
+            Uvar si
+            <span className="gradient-text"> magickú </span>
+            rozprávku
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="text-lg sm:text-xl text-slate-600 mb-8"
+          >
+            Vyber 3 emoji ingrediencie a náš čarovný hrnček ti uvarí
+            jedinečnú rozprávku. Každá je iná!
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+          >
+            <Link href="/cook">
+              <MagicButton size="lg">
+                <span className="flex items-center gap-2">
+                  <Sparkles size={24} />
+                  Začať variť
+                </span>
+              </MagicButton>
+            </Link>
+          </motion.div>
+
+          {/* Quick demo */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="mt-12 flex items-center justify-center lg:justify-start gap-3"
+          >
+            <span className="text-slate-400">Napríklad:</span>
+            <div className="flex gap-2">
+              {["🦁", "👑", "🏰"].map((emoji, i) => (
+                <motion.span
+                  key={emoji}
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 1 + i * 0.1, type: "spring" }}
+                  className="text-3xl"
+                >
+                  {emoji}
+                </motion.span>
+              ))}
+            </div>
+            <span className="text-slate-400">=</span>
+            <span className="text-2xl">📖✨</span>
+          </motion.div>
         </motion.div>
 
-        {/* Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-center mb-4"
-        >
-          <span className="rainbow-text">Hrnček Var!</span>
-        </motion.h1>
-
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="text-xl md:text-2xl text-amber-800 text-center max-w-lg mb-8"
-        >
-          Hoď emoji do hrnčeka a uvar si vlastnú magickú rozprávku!
-        </motion.p>
-
-        {/* CTA Button */}
+        {/* Right - 3D Pot illustration */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.7, type: "spring" }}
+          initial={{ opacity: 0, scale: 0.8, rotateY: -20 }}
+          animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+          transition={{ duration: 0.8, type: "spring" }}
+          className="relative"
         >
-          <Link href="/cook">
-            <MagicButton variant="magic" size="lg">
-              <span className="flex items-center gap-2">
-                <Wand2 size={24} />
-                Začať variť!
-                <Sparkles size={24} />
-              </span>
-            </MagicButton>
-          </Link>
+          {/* Glow behind pot */}
+          <div className="absolute inset-0 bg-gradient-to-t from-violet-400/30 via-cyan-400/20 to-transparent rounded-full blur-3xl scale-150" />
+
+          {/* Pot SVG */}
+          <motion.svg
+            viewBox="0 0 300 280"
+            className="w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96 relative z-10"
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            style={{ filter: 'drop-shadow(0 30px 60px rgba(139, 92, 246, 0.4))' }}
+          >
+            <defs>
+              <linearGradient id="heroPotGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#a78bfa" />
+                <stop offset="50%" stopColor="#8b5cf6" />
+                <stop offset="100%" stopColor="#7c3aed" />
+              </linearGradient>
+              <linearGradient id="heroLiquidGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#22d3ee" />
+                <stop offset="50%" stopColor="#a78bfa" />
+                <stop offset="100%" stopColor="#f472b6" />
+              </linearGradient>
+              <linearGradient id="heroRimGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#c4b5fd" />
+                <stop offset="100%" stopColor="#8b5cf6" />
+              </linearGradient>
+            </defs>
+
+            {/* Pot body */}
+            <ellipse cx="150" cy="220" rx="100" ry="40" fill="url(#heroPotGradient)" />
+            <path
+              d="M 50 120 L 50 220 Q 50 260 150 260 Q 250 260 250 220 L 250 120"
+              fill="url(#heroPotGradient)"
+            />
+
+            {/* Highlight */}
+            <path
+              d="M 60 130 L 60 200 Q 60 210 80 220"
+              fill="none"
+              stroke="rgba(255,255,255,0.3)"
+              strokeWidth="12"
+              strokeLinecap="round"
+            />
+
+            {/* Rim */}
+            <ellipse cx="150" cy="120" rx="110" ry="30" fill="url(#heroRimGradient)" />
+            <ellipse cx="150" cy="120" rx="95" ry="22" fill="url(#heroLiquidGradient)" />
+
+            {/* Handles */}
+            <ellipse cx="20" cy="150" rx="18" ry="30" fill="url(#heroPotGradient)" />
+            <ellipse cx="280" cy="150" rx="18" ry="30" fill="url(#heroPotGradient)" />
+
+            {/* Floating emojis */}
+            <g className="animate-float">
+              <text x="110" y="100" fontSize="32">🦄</text>
+              <text x="150" y="90" fontSize="28">✨</text>
+              <text x="175" y="105" fontSize="30">🌈</text>
+            </g>
+
+            {/* Sparkles */}
+            {[
+              { x: 80, y: 60, delay: 0 },
+              { x: 220, y: 70, delay: 0.3 },
+              { x: 150, y: 40, delay: 0.6 },
+            ].map((spark, i) => (
+              <motion.text
+                key={i}
+                x={spark.x}
+                y={spark.y}
+                fontSize="20"
+                animate={{ opacity: [0, 1, 0], scale: [0.5, 1, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity, delay: spark.delay }}
+              >
+                ✨
+              </motion.text>
+            ))}
+          </motion.svg>
         </motion.div>
+      </section>
 
-        {/* Feature cards */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1 }}
-          className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl w-full px-4"
-        >
+      {/* Features */}
+      <section className="py-16 px-6">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
-            {
-              icon: "🎨",
-              title: "Vyber emoji",
-              desc: "Zvol si až 3 magické emoji ingrediencie",
-            },
-            {
-              icon: "🍲",
-              title: "Uvar rozprávku",
-              desc: "Hrnček uvarí jedinečný príbeh len pre teba",
-            },
-            {
-              icon: "📖",
-              title: "Počúvaj & čítaj",
-              desc: "Rozprávku si prečítaj alebo vypočuj",
-            },
+            { icon: "🎨", title: "Vyber emoji", desc: "Zvol si až 3 ingrediencie" },
+            { icon: "🍲", title: "Uvar príbeh", desc: "Hrnček vytvorí rozprávku" },
+            { icon: "🔊", title: "Počúvaj", desc: "V SK, CZ alebo EN" },
           ].map((feature, i) => (
             <motion.div
               key={feature.title}
               initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2 + i * 0.2 }}
-              whileHover={{ scale: 1.05, y: -5 }}
-              className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 text-center shadow-xl border-2 border-white/50"
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.15 }}
+              className="glass rounded-2xl p-6 text-center card-hover"
             >
-              <div className="text-5xl mb-3">{feature.icon}</div>
-              <h3 className="text-xl font-bold text-purple-600 mb-2">{feature.title}</h3>
-              <p className="text-amber-700">{feature.desc}</p>
+              <div className="text-5xl mb-4">{feature.icon}</div>
+              <h3 className="text-lg font-bold text-slate-800 mb-2">{feature.title}</h3>
+              <p className="text-slate-500">{feature.desc}</p>
             </motion.div>
           ))}
-        </motion.div>
-      </section>
-
-      {/* Demo section */}
-      <section className="py-20 px-4 relative z-10">
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="max-w-4xl mx-auto text-center"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-amber-800 mb-8">
-            Ako to funguje?
-          </h2>
-
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-4">
-            {[
-              { emoji: "🦁", step: "1", text: "Vyber leva" },
-              { emoji: "➕", step: "", text: "" },
-              { emoji: "👑", step: "2", text: "Pridaj korunu" },
-              { emoji: "➕", step: "", text: "" },
-              { emoji: "🏰", step: "3", text: "A hrad" },
-              { emoji: "➡️", step: "", text: "" },
-              { emoji: "📖", step: "✨", text: "Máš rozprávku!" },
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, scale: 0 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15 }}
-                className="flex flex-col items-center"
-              >
-                <span className="text-4xl md:text-5xl">{item.emoji}</span>
-                {item.text && (
-                  <span className="text-sm text-amber-700 mt-2">{item.text}</span>
-                )}
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Footer CTA */}
-      <section className="py-16 px-4 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-2xl mx-auto text-center bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-orange-500/20 backdrop-blur-sm rounded-3xl p-8 border-2 border-white/30"
-        >
-          <h2 className="text-2xl md:text-3xl font-bold text-amber-800 mb-4">
-            Pripravený na dobrodružstvo?
-          </h2>
-          <p className="text-amber-700 mb-6">
-            Každá rozprávka je jedinečná - rovnako ako ty!
-          </p>
-          <Link href="/cook">
-            <MagicButton variant="magic" size="lg">
-              <span className="flex items-center gap-2">
-                <Book size={24} />
-                Uvariť rozprávku
-              </span>
-            </MagicButton>
-          </Link>
-        </motion.div>
+        </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 text-center text-amber-700 relative z-10">
+      <footer className="py-8 text-center text-slate-400 text-sm">
         <p>Hrnček Var! - Magické rozprávky pre deti</p>
-        <div className="flex justify-center gap-4 mt-4">
-          <span className="text-2xl">🇸🇰</span>
-          <span className="text-2xl">🇨🇿</span>
-          <span className="text-2xl">🇬🇧</span>
-        </div>
       </footer>
     </main>
   );

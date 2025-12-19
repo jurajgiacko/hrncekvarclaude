@@ -1,107 +1,190 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fef7cd;
-  --foreground: #4a3728;
-  --primary: #ff6b6b;
-  --secondary: #4ecdc4;
-  --accent: #ffe66d;
-  --purple: #a855f7;
-  --pink: #ec4899;
+  --background: #e8f4f8;
+  --foreground: #1a365d;
+  --primary: #8b5cf6;
+  --primary-light: #a78bfa;
+  --secondary: #06b6d4;
+  --accent: #f472b6;
+  --surface: #ffffff;
+  --surface-elevated: #f8fafc;
+  --text-muted: #64748b;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
-  --color-purple: var(--purple);
-  --color-pink: var(--pink);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-text-muted: var(--text-muted);
   --font-sans: var(--font-nunito);
 }
 
 body {
-  background: linear-gradient(180deg, #fef7cd 0%, #fde68a 50%, #fbbf24 100%);
+  background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-nunito), Arial, sans-serif;
+  font-family: var(--font-nunito), system-ui, sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
-/* Magical sparkle animation */
-@keyframes sparkle {
-  0%, 100% { opacity: 0; transform: scale(0); }
-  50% { opacity: 1; transform: scale(1); }
+/* Modern gradient backgrounds */
+.bg-gradient-main {
+  background: linear-gradient(135deg, #e0f2fe 0%, #e8f4f8 50%, #f0e7ff 100%);
 }
 
+.bg-gradient-hero {
+  background: linear-gradient(180deg, #dbeafe 0%, #e8f4f8 100%);
+}
+
+/* 3D Button effect */
+.btn-3d {
+  transform: translateY(0);
+  box-shadow:
+    0 4px 6px -1px rgba(139, 92, 246, 0.2),
+    0 10px 15px -3px rgba(139, 92, 246, 0.1),
+    0 4px 0 0 #7c3aed;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-3d:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 8px -1px rgba(139, 92, 246, 0.3),
+    0 12px 20px -3px rgba(139, 92, 246, 0.2),
+    0 6px 0 0 #7c3aed;
+}
+
+.btn-3d:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 2px 4px -1px rgba(139, 92, 246, 0.2),
+    0 4px 6px -3px rgba(139, 92, 246, 0.1),
+    0 2px 0 0 #7c3aed;
+}
+
+/* Glass morphism */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+
+.glass-dark {
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Smooth animations */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(2deg); }
 }
 
-@keyframes bubble {
-  0% { transform: translateY(0) scale(1); opacity: 0.8; }
-  100% { transform: translateY(-100px) scale(0); opacity: 0; }
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.6); }
 }
 
-@keyframes wiggle {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
-@keyframes steam {
-  0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.6; }
-  50% { transform: translateY(-30px) translateX(10px) scale(1.2); opacity: 0.3; }
-  100% { transform: translateY(-60px) translateX(-5px) scale(0.8); opacity: 0; }
+@keyframes bubble-rise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-80px) scale(0.3);
+    opacity: 0;
+  }
 }
 
-@keyframes rainbow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-.animate-sparkle {
-  animation: sparkle 1.5s ease-in-out infinite;
+@keyframes steam-rise {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.8);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-40px) translateX(15px) scale(1.2);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-80px) translateX(-10px) scale(0.6);
+    opacity: 0;
+  }
 }
 
 .animate-float {
-  animation: float 3s ease-in-out infinite;
+  animation: float 4s ease-in-out infinite;
 }
 
-.animate-bubble {
-  animation: bubble 2s ease-out forwards;
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
 }
 
-.animate-wiggle {
-  animation: wiggle 0.5s ease-in-out infinite;
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
 }
 
-.animate-steam {
-  animation: steam 2s ease-out infinite;
-}
-
-.rainbow-text {
-  background: linear-gradient(90deg, #ff6b6b, #ffe66d, #4ecdc4, #a855f7, #ec4899, #ff6b6b);
-  background-size: 200% auto;
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 50%, #f472b6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: rainbow 3s linear infinite;
 }
 
-/* Custom scrollbar for kids */
+/* Card hover effect */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(139, 92, 246, 0.25);
+}
+
+/* Emoji button style */
+.emoji-btn {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.emoji-btn:hover {
+  transform: scale(1.2) rotate(-5deg);
+  background: rgba(139, 92, 246, 0.1);
+}
+
+.emoji-btn:active {
+  transform: scale(0.95);
+}
+
+/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #fef7cd;
+  background: rgba(139, 92, 246, 0.1);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #ff6b6b, #ec4899);
+  background: linear-gradient(180deg, #8b5cf6, #06b6d4);
   border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #7c3aed, #0891b2);
 }
